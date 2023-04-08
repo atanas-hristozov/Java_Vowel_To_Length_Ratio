@@ -1,0 +1,48 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input1 = scanner.nextLine();
+        int n = Integer.parseInt(input1);
+        boolean isVowel = false;
+        double ratio = 0;
+        double minRatio = Double.MAX_VALUE;
+        int resultVowels = 0;
+        int resultLetters = 0;
+        String result = "";
+        while (n>0){
+            String food = scanner.nextLine();
+            int vowelCounter = 0;
+            for (int i = 0; i < food.length(); i++) {
+                char letter = food.charAt(i);
+                if(letter=='a' || letter=='A' || letter=='e' || letter=='E' || letter=='i' || letter=='I'
+                        || letter=='o' || letter=='O' || letter=='u' || letter=='U'){
+                    isVowel = true;
+                    vowelCounter++;
+                }
+            }
+            ratio = vowelCounter * 1.0/food.length();
+            if(ratio<minRatio){
+                minRatio = ratio;
+                result = food;
+                resultVowels = vowelCounter;
+                resultLetters = food.length();
+            }else if(ratio==minRatio){
+                if(vowelCounter>resultVowels){
+                    result = food;
+                    resultVowels = vowelCounter;
+                    resultLetters = food.length();
+                }else if(vowelCounter==resultVowels){
+                    if(food.length()>resultLetters){
+                        result = food;
+                        resultVowels = vowelCounter;
+                        resultLetters = food.length();
+                    }
+                }
+            }
+            n--;
+        }
+        System.out.printf("%s %d/%d%n", result, resultVowels, resultLetters);
+    }
+}
